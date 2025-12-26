@@ -16,31 +16,6 @@ QEMU で用意されている、仮想的な汎用マシン.
 最小限、標準的なハード構成が備わっている.
 実在ボード (Rasspberry Pi) をエミュレートしたければ、virt ではなく対応するマシンを選択する必要がある.
 
-### RISC-V 関連用語
-
-M-mode: (Machine mode)
-RISV-V の動作モードの1つ.
-OpenSBI が動作するモード. (一番CPUに近いモード)
-
-S-mode: (Supervisor mode)
-RISV-V の動作モードの1つ.
-OS カーネルが動作するモード.
-
-U-mode: (User mode)
-RISV-V の動作モードの1つ.
-ユーザープログラムが動作するモード.
-
-CSR: (Control and Status Register)
-CPU の動作設定を格納するレジスタ.
-特権命令でのみアクセス可能.
-
-SBI: (Supervisor Binary Interface)
-S-mode (OS カーネル) と M-mode (OpenSBI) 間のインターフェース仕様.
-<-> U-mode と S-mode 間のインターフェースはシステムコール.
-[SBI仕様](https://github.com/riscv-non-isa/riscv-sbi-doc/releases/tag/v3.0)
-OpenSBI は SBI の実装例.
-
-
 ### OS 関連
 
 マルチタスク:
