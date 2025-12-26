@@ -20,7 +20,7 @@ QEMU で用意されている、仮想的な汎用マシン.
 
 M-mode: (Machine mode)
 RISV-V の動作モードの1つ.
-OpenSBI が動作するモード.
+OpenSBI が動作するモード. (一番CPUに近いモード)
 
 S-mode: (Supervisor mode)
 RISV-V の動作モードの1つ.
@@ -66,17 +66,8 @@ OS カーネルがハードウェアデバイスを制御するためのソフ�
 シェル:
 利用者がコマンドを入力して OS に指示を出すためのインターフェース.
 
-## RISV-V 命令
 
-### 特権命令
-
-`csrr rd, csr` : CSR の内容を rd レジスタに読み込む.
-`csrw csr, rs` : rs レジスタの内容を CSR に書き込む.
-`csrrw rd, csr, rs` : CSR の内容を rd レジスタに読み込み, rs レジスタの内容を CSR に書き込む.
-`sret` : トラップハンドラからの復帰命令.
-`sfence.vma` : TLB (Translation Lookaside Buffer) をクリアする.
-
-### アセンブリ命令の書き方
+## アセンブリ命令の書き方
 
 gcc の独自拡張機能として、C コード内にアセンブリ命令を埋め込むことができる.(Inline Assembly)
 
