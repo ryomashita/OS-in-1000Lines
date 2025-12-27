@@ -2,7 +2,7 @@
 
 RISC-V 関連の用語や命令についてまとめる.
 
-##RISC-V 関連用語
+## RISC-V 関連用語
 
 M-mode: (Machine mode)
 RISV-V の動作モードの1つ.

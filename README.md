@@ -45,6 +45,16 @@ OS カーネルがハードウェアデバイスを制御するためのソフ�
 OS に含まれる要素の中で、カーネル以外の要素.
 (例: ユーザーが作成したプログラム, シェル, カーネル権限を必要としないライブラリなど)
 
+### 仮想化関連
+
+virtio:
+準仮想化を実現するためのフレームワーク.
+仮想マシンとホストOS間でデータをやり取りするための仕組み.
+https://zenn.dev/junjunjunjun/articles/27ede76931cc85
+
+セクタ:
+ブロックデバイスの最小単位のデータサイズ.
+通常 512 バイトまたは 4096 バイト.
 
 ## アセンブリ命令の書き方
 
@@ -88,4 +98,22 @@ li a0, 123         # 汎用レジスタ a0 に即値 123 を読み込む
 csrw sscratch, a0  # CSR sscratch に a0 の内容を書き込む
 ```
 
+## Virtio 入門
 
+https://1000os.seiya.me/ja/15-virtio-blk#virtio入門
+virtio Specification: https://docs.oasis-open.org/virtio/virtio/v1.1/csprd01/virtio-v1.1-csprd01.html
+
+virtio はゲストOSとハイパーバイザ間のデバイスIOを実現するための標準フレームワーク.
+
+### virtqueue
+
+virtio デバイス (virtio で仮想化されたデバイス) は、ホストOS/ゲストOSで共有するリングバッファ (virtqueue) を介してデータをやり取りする.
+virtqueue は以下の3つの部分で構成される:
+- Discriptor Chain: 処理要求を表す単方向リスト.
+  - 複数のディスクリプタを一度に要求できるので、飛び飛びのメモリアクセスや異なる属性もまとめて処理できる.
+- Available Ring: ゲストOSのドライバの処理要求を格納する
+- Used Ring: ホストOSのドライバの処理完了を格納する
+
+1. ゲストOSのドライバ: Descriptor Chain に処理要求を追加し、Available Ring にインデックスを書き込む.
+2. ホストOSのドライバ: Available Ring から処理要求を取得し、処理を実行. 処理が完了したら Used Ring にインデックスを書き込む.
+3. ゲストOSのドライバ: Used Ring から処理完了を取得し、結果を処理する.
