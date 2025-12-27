@@ -26,6 +26,11 @@ S-mode (OS カーネル) と M-mode (OpenSBI) 間のインターフェース仕�
 [SBI仕様](https://github.com/riscv-non-isa/riscv-sbi-doc/releases/tag/v3.0)
 OpenSBI は SBI の実装例.
 
+トラップ (Trap):
+CPU の例外処理の総称.
+  割り込み (Interrupt) や例外 (Exception) を含む総称.
+  トラップの種類は scause CSR レジスタで判定できる.
+
 ## 命令
 
 mv rd, rs
@@ -43,6 +48,11 @@ csrr rd, csr
     rd = csr; (CSR read)
 csrw csr, rs
     csr = rs; (CSR write)
+
+ecall (Environment Call)
+    環境呼び出し命令.
+    現在の特権レベルで例外を発生させ、上位の特権レベルに制御を移す命令.
+    U-Mode から S-mode のカーネル機能を呼び出す = システムコール に使用される.
 
 unimp
     未実装命令を意図的に呼び出す命令.
